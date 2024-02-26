@@ -84,4 +84,5 @@
 		<!-- Execute SonarQube Scanner for Ant Analysis -->
 		<sonar:sonar />
 	</target>
+	</project>
 
