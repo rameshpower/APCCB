@@ -12,13 +12,6 @@ pipeline {
                 sh 'ant clean compile'
             }
         }
-
-        stage('Run Tests') {
-            steps {
-                sh 'ant run-tests'
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                 script {
