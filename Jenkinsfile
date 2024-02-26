@@ -15,7 +15,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'ant test'
+                sh 'ant run-tests'
             }
         }
 
