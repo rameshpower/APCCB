@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="APCCB" default="build" basedir=".">
+
+	<!-- Set the properties -->
+	<property environment="env" />
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="target.dir" value="target" />
+	<property name="webcontent.dir" value="WebContent" />
+	<property name="lib.dir" value="${webcontent.dir}/WEB-INF/lib" />
+	<property name="classes.dir" value="${build.dir}/WEB-INF/classes" />
+	<property name="war.file" value="${target.dir}/APCCB.war" />
+	
+	<!-- Clean build directories -->
+	<target name="clean" description="clean">
+		<delete dir="${build.dir}" failonerror="false" />
+		<delete dir="${classes.dir}" failonerror="false" />
+		<delete dir="${target.dir}" failonerror="false" />
+	</target>
+	
+	<!-- Create build directories -->
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${target.dir}" />
+	</target>
+
+	<!-- Compile Java code -->
+	<target name="compile" depends="init">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" target="1.8">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${env.TOMCAT9}/lib">
+					<include name="**/*.jar"/>
+				</fileset>
+
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- Create the WAR file -->
+	<target name="war" depends="compile">
+		<war destfile="${war.file}" webxml="${webcontent.dir}/WEB-INF/web.xml">
+			<fileset dir="${webcontent.dir}">
+				<exclude name="WEB-INF/lib/**" />
+				<exclude name="WEB-INF/classes/**" />
+			</fileset>
+			<fileset dir="${build.dir}">
+				<include name="**/*.*" />
+			</fileset>
+			<lib dir="${lib.dir}" />
+		</war>
+	</target>
+
+	<!-- Build the project -->
+	<target name="build" depends="war">
+		<echo message="Build completed" />
+	</target>
+
+</project>
