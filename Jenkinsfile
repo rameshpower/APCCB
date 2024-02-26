@@ -1,4 +1,4 @@
-ppipeline {
+pipeline {
     agent any
     
     tools {
@@ -9,7 +9,7 @@ ppipeline {
     stages {
         stage('Build') {
             steps {
-                dir('/var/lib/jenkins/workspace/ant_project') {
+                dir("${WORKSPACE}/ant_project") {
                     sh 'ant clean compile'
                 }
             }
@@ -17,7 +17,7 @@ ppipeline {
 
         stage('Run Tests') {
             steps {
-                dir('/var/lib/jenkins/workspace/ant_project') {
+                dir("${WORKSPACE}/ant_project") {
                     sh 'ant test'
                 }
             }
@@ -25,7 +25,7 @@ ppipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                dir('/var/lib/jenkins/workspace/ant_project') {
+                dir("${WORKSPACE}/ant_project") {
                     script {
                         withSonarQubeEnv('LocalSonarqube') {
                             sh 'ant sonar'
@@ -34,5 +34,5 @@ ppipeline {
                 }
             }
         }
-
-       
+    }
+}
