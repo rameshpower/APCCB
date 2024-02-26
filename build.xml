@@ -23,6 +23,8 @@
 	<property name="sonar.projectVersion" value="1.0" />
 	<property name="sonar.sources" value="src" />
 	<property name="sonar.binaries" value="target" />
+	<property name="sonar.java.binaries" value="${classes.dir}" />
+
 	
 	
 	<!-- Clean build directories -->
@@ -82,7 +84,7 @@
 		</taskdef>
 
 		<!-- Execute SonarQube Scanner for Ant Analysis -->
-		<sonar:sonar />
+		<sonar:sonar/>
 	</target>
 	</project>
 
